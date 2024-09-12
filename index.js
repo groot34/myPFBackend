@@ -9,17 +9,25 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
-  'https://atharvx.vercel.app',
-  'http://localhost:5173'
+  'https://atharvx.vercel.app', // Your deployed frontend URL
+  'http://localhost:5173' // For local development
 ];
 
-// Apply CORS middleware
 app.use(cors({
-  origin: allowedOrigins, // Automatically set the correct origin
+  origin: function (origin, callback) {
+    // Allow requests from allowedOrigins or no origin (for server-to-server requests)
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
-  credentials: true, // Allows cookies to be sent
+  credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+app.options('*', cors()); 
 
 // Import the send-email route handler
 const sendEmailHandler = require('./api/send-email');
