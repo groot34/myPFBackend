@@ -13,12 +13,14 @@ const corsOptions = {
   origin: [
     process.env.FRONTEND_URL,
     'http://localhost:5173',
+    'https://theatharva.in',
+    'https://www.theatharva.in',
     'https://theatharva.me',
     'https://www.theatharva.me',
     'https://atharvx.vercel.app'
-  ], 
+  ],
   methods: ['GET', 'POST', 'OPTIONS'],
-  //allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   optionsSuccessStatus: 200
 };
@@ -29,7 +31,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Preflight request handler
-// app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Import the send-email route handler
 const sendEmailHandler = require('./api/send-email');

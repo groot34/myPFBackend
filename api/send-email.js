@@ -4,6 +4,8 @@ const nodemailer = require('nodemailer');
 const sendEmailHandler = async (req, res) => {
   // Allowed origins
   const allowedOrigins = [
+    'https://theatharva.in',
+    'https://www.theatharva.in',
     'https://theatharva.me',
     'https://www.theatharva.me',
     'https://atharvx.vercel.app',
